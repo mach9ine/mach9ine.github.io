@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet" />
   <style>
-    /* Reset */
+  
     * {
       margin: 0;
       padding: 0;
@@ -26,7 +26,7 @@
       position: relative;
     }
 
-    /* Loading screen styles */
+
     #loadingScreen {
       position: fixed;
       top: 0; left: 0;
@@ -57,7 +57,7 @@
       opacity: 1;
     }
 
-    /* Main content hidden initially and slid down */
+
     main {
       display: flex;
       flex-direction: column;
@@ -182,7 +182,7 @@
       box-shadow: 0 0 10px #d0a0ff, 0 0 40px #d0a0ff;
     }
 
-    /* Terminal and tool box common */
+
     .terminal-box, .tool-box {
       position: absolute;
       background: rgba(20, 0, 30, 0.8);
@@ -210,7 +210,7 @@
     .tool-box {
       width: 320px;
       height: 150px;
-      /* default slide DOWN from -50px to 0 */
+
       transform: translateY(-50px);
     }
 
@@ -238,7 +238,7 @@
       color: #d0a0ff;
     }
 
-    /* Slide in active class for terminal and tools */
+
     .terminal-box.visible {
       opacity: 1;
       transform: translateY(0);
@@ -258,7 +258,7 @@
       position: relative;
     }
 
-    /* Sparkle trail styles */
+
     .sparkle {
       position: fixed;
       pointer-events: none;
@@ -282,13 +282,13 @@
   </style>
 </head>
 <body>
-  <!-- Loading Screen -->
+
   <div id="loadingScreen">
     <div id="loadingPercent">Loading 0</div>
     <div id="enterText">Click to enter</div>
   </div>
 
-  <!-- Audio element: will play on user click -->
+
   <audio id="bgMusic" loop>
     <source src="music.mp3" type="audio/mpeg" />
     Your browser does not support the audio element.
@@ -337,7 +337,7 @@
   </footer>
 
   <script>
-    // Glitch effect on profile pic
+
     function glitchEffect(element) {
       element.classList.add('glitch');
       setTimeout(() => {
@@ -345,7 +345,7 @@
       }, 1000);
     }
 
-    // Terminal and tool-box console logs loop
+
     const terminalBox = document.getElementById('terminalBox');
     const metasploitBox = document.getElementById('metasploitBox');
     const wifiteBox = document.getElementById('wifiteBox');
@@ -403,7 +403,7 @@
     loop(wifiteBox, wifiteLines);
     loop(toolsBox, otherTools);
 
-    // Loading screen logic
+
     const loadingScreen = document.getElementById('loadingScreen');
     const loadingPercent = document.getElementById('loadingPercent');
     const enterText = document.getElementById('enterText');
@@ -416,7 +416,7 @@
     function updateLoading() {
       if (progress >= 100) {
         clearInterval(loadingInterval);
-        // Hide loadingPercent text, show only "Click to enter"
+
         loadingPercent.style.display = 'none';
         enterText.classList.add('visible');
         loadingScreen.style.cursor = 'pointer';
@@ -428,27 +428,27 @@
     }
 
     function enterSite() {
-      // Play music
+
       bgMusic.play().catch(() => {
-        // Autoplay might be blocked until user interaction (click)
+
       });
 
-      // Animate loading screen sliding up and fading out
+
       loadingScreen.style.transform = 'translateY(-100%)';
       loadingScreen.style.opacity = '0';
 
-      // Animate main content slide in from below
+
       mainContent.classList.add('visible');
 
-      // Animate terminal and tool boxes after short delay
+
       setTimeout(() => {
-        terminalBox.classList.add('visible');  // slide up
-        metasploitBox.classList.add('visible'); // slide down
-        wifiteBox.classList.add('visible'); // slide down
-        toolsBox.classList.add('visible'); // slide down
+        terminalBox.classList.add('visible');  
+        metasploitBox.classList.add('visible'); 
+        wifiteBox.classList.add('visible'); 
+        toolsBox.classList.add('visible'); 
       }, 700);
 
-      // Remove loading screen from DOM after animation
+ 
       setTimeout(() => {
         loadingScreen.style.display = 'none';
       }, 1500);
@@ -456,7 +456,7 @@
 
     loadingInterval = setInterval(updateLoading, 40);
 
-    // Sparkling mouse trail
+
     document.addEventListener('mousemove', function (e) {
       createSparkle(e.clientX, e.clientY);
     });
@@ -468,7 +468,7 @@
       sparkle.style.top = y + 'px';
       document.body.appendChild(sparkle);
 
-      // Remove sparkle after animation duration
+
       sparkle.addEventListener('animationend', () => {
         sparkle.remove();
       });
