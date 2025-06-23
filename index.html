@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mach9ne | Code Analyst</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Jersey 10', monospace;
+      background-color: #000;
+      color: #d0a0ff;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: repeating-linear-gradient(
+        45deg,
+        rgba(200, 100, 255, 0.05),
+        rgba(200, 100, 255, 0.05) 1px,
+        transparent 1px,
+        transparent 20px
+      );
+    }
+    .floating-boxes {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: -1;
+    }
+    .floating-boxes div {
+      position: absolute;
+      border: 1px solid rgba(208, 160, 255, 0.3);
+      background-color: rgba(208, 160, 255, 0.03);
+      animation: floatAnim 10s infinite ease-in-out;
+    }
+    @keyframes floatAnim {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+      z-index: 10;
+      position: relative;
+    }
+    .glitch {
+      font-size: 3rem;
+      animation: glitch 1s infinite;
+      text-align: center;
+    }
+    @keyframes glitch {
+      0% { text-shadow: 2px 2px #ff00ff; }
+      20% { text-shadow: -2px -2px #aa00ff; }
+      40% { text-shadow: 2px -2px #cc00cc; }
+      60% { text-shadow: -2px 2px #9900ff; }
+      80% { text-shadow: 2px 2px #bb00bb; }
+      100% { text-shadow: none; }
+    }
+    .profile-pic {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin-top: 1rem;
+      cursor: pointer;
+      transition: transform 0.3s ease-in-out;
+      border: 2px solid #d0a0ff;
+    }
+    .profile-pic:hover {
+      transform: scale(1.2) rotate(3deg);
+      filter: hue-rotate(270deg) brightness(150%);
+    }
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+      z-index: 10;
+    }
+    .box {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      border: 2px solid #d0a0ff;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      animation: floatBox 5s infinite ease-in-out;
+    }
+    @keyframes floatBox {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .contact-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    .contact-buttons a {
+      margin: 1rem;
+      padding: 1rem 2rem;
+      border: 2px solid #d0a0ff;
+      color: #d0a0ff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease-in-out;
+    }
+    .contact-buttons a:hover {
+      background-color: #d0a0ff;
+      color: #000;
+      transform: scale(1.1);
+      box-shadow: 0 0 10px #d0a0ff, 0 0 40px #d0a0ff;
+    }
+    .terminal-box, .tool-box {
+      position: absolute;
+      background: rgba(20, 0, 30, 0.8);
+      color: #39ff14;
+      font-size: 0.85rem;
+      border: 2px solid #aa00ff;
+      padding: 10px;
+      overflow: hidden;
+      font-family: monospace;
+      animation: floatBox 6s infinite ease-in-out;
+      box-shadow: 0 0 20px #aa00ff44;
+      z-index: 5;
+    }
+    .tool-box::before {
+      content: 'root@mach9ne:~$';
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #d0a0ff;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      opacity: 0.6;
+      z-index: 10;
+      position: relative;
+    }
+    #toolsBox {
+      top: -200px;
+      left: 60px;
+      width: 360px;
+      height: 220px;
+    }
+  </style>
+</head>
+<body>
+  <audio autoplay loop>
+    <source src="https://files.catbox.moe/31wkba.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="floating-boxes">
+    <div style="width: 50px; height: 50px; top: 10%; left: 5%; animation-delay: 0s;"></div>
+    <div style="width: 80px; height: 30px; top: 25%; left: 70%; animation-delay: 1s;"></div>
+    <div style="width: 30px; height: 100px; top: 60%; left: 40%; animation-delay: 2s;"></div>
+    <div style="width: 120px; height: 40px; top: 45%; left: 20%; animation-delay: 1.5s;"></div>
+    <div style="width: 60px; height: 60px; top: 80%; left: 85%; animation-delay: 2.5s;"></div>
+    <div style="width: 90px; height: 70px; top: 70%; left: 10%; animation-delay: 0.8s;"></div>
+  </div>
+
+  <header>
+    <h1 class="glitch">Mach9ne</h1>
+    <img src="https://files.catbox.moe/v83ogd.png" alt="Profile Picture" class="profile-pic" onclick="glitchEffect(this)">
+  </header>
+
+  <main>
+    <div class="box">
+      <h2>Code Analyst & Database Security Specialist</h2>
+      <p>Currently working with <strong>HeartSec</strong></p>
+      <br>
+      <p>I specialize in advanced code analysis, database architecture, and security auditing. With deep experience in reverse engineering, penetration testing, and system hardening, my role is critical to secure infrastructure development. I also contribute to threat modeling, malware analysis, and advanced cyber ops support.</p>
+    </div>
+
+    <div class="contact-buttons">
+      <a href="mailto:mach9ne@proton.me">Email</a>
+      <a href="https://t.me/mach9ne" target="_blank">Telegram</a>
+      <a href="https://instagram.com/mach9ne" target="_blank">Instagram</a>
+    </div>
+
+    <div class="terminal-box" id="terminalBox" style="top: 30px; right: 30px; width: 300px; height: 200px;"></div>
+    <div class="tool-box" id="metasploitBox" style="top: 250px; left: 40px; width: 320px; height: 150px;"></div>
+    <div class="tool-box" id="wifiteBox" style="bottom: 40px; right: 60px; width: 250px; height: 130px;"></div>
+    <div class="tool-box" id="toolsBox"></div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Mach9ne. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function glitchEffect(element) {
+      element.classList.add('glitch');
+      setTimeout(() => {
+        element.classList.remove('glitch');
+      }, 1000);
+    }
+
+    const terminalBox = document.getElementById('terminalBox');
+    const metasploitBox = document.getElementById('metasploitBox');
+    const wifiteBox = document.getElementById('wifiteBox');
+    const toolsBox = document.getElementById('toolsBox');
+
+    const terminalLines = [
+      'nmap -sS -T4 -p- 192.168.1.1',
+      '└─ open ports: 22, 80, 443',
+      'sqlmap -u https://heartsec.art/ --dbs',
+      '[INFO] testing connection to the target URL...',
+      '[INFO] the back-end DBMS is MySQL'
+    ];
+
+    const metasploitLines = [
+      'msfconsole',
+      'use exploit/windows/smb/ms17_010_eternalblue',
+      'set RHOST 10.10.10.5',
+      'exploit',
+      '[*] Exploit completed, launching session...'
+    ];
+
+    const wifiteLines = [
+      'wifite --kill --crack',
+      '[+] Scanning for WiFi networks...',
+      '[+] Attacking WPS-enabled AP: TP-LINK_5GHz',
+      '[+] PIN found: 75319832',
+      '[+] Cracked WPA key: pseu6onym'
+    ];
+
+    const otherTools = [
+      'hydra -l admin -P rockyou.txt 192.168.0.10 http-get /admin',
+      '[DATA] attacking http-get with 1000 passwords',
+      'dirb http://heartsec.xyz/',
+      '+ http://heartsec.xyz/mach9ne',
+      'nikto -host target.site'
+    ];
+
+    function loop(box, lines) {
+      let i = 0;
+      function next() {
+        if (i >= lines.length) {
+          setTimeout(() => loop(box, lines), 4000);
+          return;
+        }
+        box.innerHTML += lines[i] + '<br>';
+        i++;
+        setTimeout(next, 800);
+      }
+      box.innerHTML = '<span style="color:#d0a0ff">root@mach9ne:~$</span><br>';
+      next();
+    }
+
+    loop(terminalBox, terminalLines);
+    loop(metasploitBox, metasploitLines);
+    loop(wifiteBox, wifiteLines);
+    loop(toolsBox, otherTools);
+  </script>
+</body>
+</html>
