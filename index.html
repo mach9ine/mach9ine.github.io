@@ -8,11 +8,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet" />
   <style>
-  
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      user-select: none;
     }
 
     body, html {
@@ -26,7 +26,6 @@
       position: relative;
     }
 
-
     #loadingScreen {
       position: fixed;
       top: 0; left: 0;
@@ -38,25 +37,26 @@
       justify-content: center;
       align-items: center;
       z-index: 9999;
-      user-select: none;
       font-size: 2rem;
       letter-spacing: 0.1em;
       color: #d0a0ff;
       transition: transform 0.8s ease, opacity 0.8s ease;
     }
+
     #loadingPercent {
       font-weight: bold;
       margin-bottom: 1rem;
     }
+
     #enterText {
       opacity: 0;
       transition: opacity 0.3s ease-in-out;
       font-size: 1.2rem;
     }
+
     #enterText.visible {
       opacity: 1;
     }
-
 
     main {
       display: flex;
@@ -72,6 +72,7 @@
       opacity: 0;
       transition: transform 0.8s ease, opacity 0.8s ease;
     }
+
     main.visible {
       visibility: visible;
       transform: translateY(0);
@@ -94,6 +95,7 @@
         transparent 20px
       );
     }
+
     .floating-boxes {
       position: fixed;
       top: 0;
@@ -103,16 +105,19 @@
       pointer-events: none;
       z-index: -1;
     }
+
     .floating-boxes div {
       position: absolute;
       border: 1px solid rgba(208, 160, 255, 0.3);
       background-color: rgba(208, 160, 255, 0.03);
       animation: floatAnim 10s infinite ease-in-out;
     }
+
     @keyframes floatAnim {
       0%, 100% { transform: translateY(0px); }
       50% { transform: translateY(-20px); }
     }
+
     header {
       display: flex;
       flex-direction: column;
@@ -121,11 +126,13 @@
       z-index: 10;
       position: relative;
     }
+
     .glitch {
       font-size: 3rem;
       animation: glitch 1s infinite;
       text-align: center;
     }
+
     @keyframes glitch {
       0% { text-shadow: 2px 2px #ff00ff; }
       20% { text-shadow: -2px -2px #aa00ff; }
@@ -134,6 +141,7 @@
       80% { text-shadow: 2px 2px #bb00bb; }
       100% { text-shadow: none; }
     }
+
     .profile-pic {
       width: 150px;
       height: 150px;
@@ -143,11 +151,13 @@
       transition: transform 0.3s ease-in-out;
       border: 2px solid #d0a0ff;
     }
+
     .profile-pic:hover {
       transform: scale(1.2) rotate(3deg);
       filter: hue-rotate(270deg) brightness(150%);
     }
-    .box {
+
+    .expandable-box {
       max-width: 800px;
       margin: 2rem auto;
       padding: 2rem;
@@ -155,17 +165,49 @@
       background: rgba(0, 0, 0, 0.3);
       backdrop-filter: blur(10px);
       animation: floatBox 5s infinite ease-in-out;
+      max-height: 400px;
+      transition: max-height 1s ease, background 0.5s ease;
+      overflow: hidden;
+      position: relative;
     }
+
+    .expandable-box:hover {
+      max-height: 1000px;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .long-content {
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: opacity 1s ease, max-height 1s ease;
+    }
+
+    .expandable-box:hover .long-content {
+      opacity: 1;
+      max-height: 1000px;
+    }
+
+    .short-content {
+      transition: transform 0.4s ease;
+    }
+
+    .expandable-box:hover .short-content {
+      transform: scale(1.02);
+    }
+
     @keyframes floatBox {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
     }
+
     .contact-buttons {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       margin-top: 2rem;
     }
+
     .contact-buttons a {
       margin: 1rem;
       padding: 1rem 2rem;
@@ -174,90 +216,15 @@
       text-decoration: none;
       font-weight: bold;
       transition: all 0.3s ease-in-out;
+      user-select: text;
     }
+
     .contact-buttons a:hover {
       background-color: #d0a0ff;
       color: #000;
       transform: scale(1.1);
       box-shadow: 0 0 10px #d0a0ff, 0 0 40px #d0a0ff;
     }
-
-
-    .terminal-box, .tool-box {
-      position: absolute;
-      background: rgba(20, 0, 30, 0.8);
-      color: #39ff14;
-      font-size: 0.85rem;
-      border: 2px solid #aa00ff;
-      padding: 10px;
-      overflow: hidden;
-      font-family: monospace;
-      box-shadow: 0 0 20px #aa00ff44;
-      z-index: 5;
-      opacity: 0;
-      transition: transform 0.8s ease, opacity 0.8s ease;
-    }
-
-    .terminal-box {
-      top: 30px;
-      right: 30px;
-      width: 300px;
-      height: 200px;
-      /* will slide UP from +50px to 0 */
-      transform: translateY(50px);
-    }
-
-    .tool-box {
-      width: 320px;
-      height: 150px;
-
-      transform: translateY(-50px);
-    }
-
-    #metasploitBox {
-      top: 250px;
-      left: 40px;
-    }
-    #wifiteBox {
-      bottom: 40px;
-      right: 60px;
-      width: 250px;
-      height: 130px;
-    }
-    #toolsBox {
-      top: -200px;
-      left: 60px;
-      width: 360px;
-      height: 220px;
-    }
-
-    .tool-box::before {
-      content: 'root@mach9ne:~$';
-      display: block;
-      margin-bottom: 0.5rem;
-      color: #d0a0ff;
-    }
-
-
-    .terminal-box.visible {
-      opacity: 1;
-      transform: translateY(0);
-      transition-delay: 0.3s;
-    }
-    .tool-box.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem;
-      font-size: 0.9rem;
-      opacity: 0.6;
-      z-index: 10;
-      position: relative;
-    }
-
 
     .sparkle {
       position: fixed;
@@ -282,12 +249,10 @@
   </style>
 </head>
 <body>
-
   <div id="loadingScreen">
     <div id="loadingPercent">Loading 0</div>
     <div id="enterText">Click to enter</div>
   </div>
-
 
   <audio id="bgMusic" loop>
     <source src="music.mp3" type="audio/mpeg" />
@@ -304,20 +269,34 @@
   </div>
 
   <header>
-    <h1 class="glitch">Mach9ne</h1>
-    <img src="pfp.png" alt="Profile Picture" class="profile-pic" onclick="glitchEffect(this)" />
+    <h1 class="glitch" id="name">Mach9ne</h1>
+    <img src="pfp.png" alt="Profile Picture" class="profile-pic" onclick="glitchEffect(this)" id="pfp" />
   </header>
 
   <main>
-    <div class="box">
-      <h2>Code Analyst & Database Security Specialist</h2>
-      <p>Currently working with <strong>HeartSec</strong></p>
-      <br />
-      <p>
-        I specialize in advanced code analysis, database architecture, and security auditing. With deep experience in reverse engineering,
-        penetration testing, and system hardening, my role is critical to secure infrastructure development. I also contribute to threat
-        modeling, malware analysis, and advanced cyber ops support.
-      </p>
+    <div class="expandable-box">
+      <div class="short-content">
+        <h2>Code Analyst & Database Security Specialist</h2>
+        <p>Currently working with <strong>HeartSec</strong></p>
+        <br />
+        <p>
+          I specialize in advanced code analysis, database architecture, and security auditing. With deep experience in reverse engineering,
+          penetration testing, and system hardening, my role is critical to secure infrastructure development. I also contribute to threat
+          modeling, malware analysis, and advanced cyber ops support.
+        </p>
+      </div>
+      <div class="long-content">
+        <p>
+          My work includes large-scale vulnerability assessments, red-teaming simulations, cryptographic implementations,
+          and proactive defense strategy formulation. I regularly assess web and cloud-based infrastructures for CVEs, zero-day exploits,
+          and insider threat vectors. Familiar with industry-grade tools like Burp Suite, IDA Pro, Ghidra, and custom automation scripts.
+        </p>
+        <br />
+        <p>
+          I'm also an advocate of secure coding practices in modern frameworks, with deep integration of threat modeling into SDLC pipelines.
+          I’ve designed layered defense models that integrate endpoint detection, SIEM feeds, and live incident response protocols.
+        </p>
+      </div>
     </div>
 
     <div class="contact-buttons">
@@ -325,84 +304,15 @@
       <a href="https://t.me/mach9ne" target="_blank">Telegram</a>
       <a href="https://instagram.com/mach9ne" target="_blank">Instagram</a>
     </div>
-
-    <div class="terminal-box" id="terminalBox"></div>
-    <div class="tool-box" id="metasploitBox"></div>
-    <div class="tool-box" id="wifiteBox"></div>
-    <div class="tool-box" id="toolsBox"></div>
   </main>
 
-  <footer>
-    <p>&copy; 2025 Mach9ne. All rights reserved.</p>
-  </footer>
-
   <script>
-
     function glitchEffect(element) {
       element.classList.add('glitch');
       setTimeout(() => {
         element.classList.remove('glitch');
       }, 1000);
     }
-
-
-    const terminalBox = document.getElementById('terminalBox');
-    const metasploitBox = document.getElementById('metasploitBox');
-    const wifiteBox = document.getElementById('wifiteBox');
-    const toolsBox = document.getElementById('toolsBox');
-
-    const terminalLines = [
-      'nmap -sS -T4 -p- 192.168.1.1',
-      '└─ open ports: 22, 80, 443',
-      'sqlmap -u https://heartsec.art/ --dbs',
-      '[INFO] testing connection to the target URL...',
-      '[INFO] the back-end DBMS is MySQL'
-    ];
-
-    const metasploitLines = [
-      'msfconsole',
-      'use exploit/windows/smb/ms17_010_eternalblue',
-      'set RHOST 10.10.10.5',
-      'exploit',
-      '[*] Exploit completed, launching session...'
-    ];
-
-    const wifiteLines = [
-      'wifite --kill --crack',
-      '[+] Scanning for WiFi networks...',
-      '[+] Attacking WPS-enabled AP: TP-LINK_5GHz',
-      '[+] PIN found: 75319832',
-      '[+] Cracked WPA key: pseu6onym'
-    ];
-
-    const otherTools = [
-      'hydra -l admin -P rockyou.txt 192.168.0.10 http-get /admin',
-      '[DATA] attacking http-get with 1000 passwords',
-      'dirb http://heartsec.xyz/',
-      '+ http://heartsec.xyz/mach9ne',
-      'nikto -host target.site'
-    ];
-
-    function loop(box, lines) {
-      let i = 0;
-      function next() {
-        if (i >= lines.length) {
-          setTimeout(() => loop(box, lines), 4000);
-          return;
-        }
-        box.innerHTML += lines[i] + '<br>';
-        i++;
-        setTimeout(next, 800);
-      }
-      box.innerHTML = '<span style="color:#d0a0ff">root@mach9ne:~$</span><br>';
-      next();
-    }
-
-    loop(terminalBox, terminalLines);
-    loop(metasploitBox, metasploitLines);
-    loop(wifiteBox, wifiteLines);
-    loop(toolsBox, otherTools);
-
 
     const loadingScreen = document.getElementById('loadingScreen');
     const loadingPercent = document.getElementById('loadingPercent');
@@ -416,7 +326,6 @@
     function updateLoading() {
       if (progress >= 100) {
         clearInterval(loadingInterval);
-
         loadingPercent.style.display = 'none';
         enterText.classList.add('visible');
         loadingScreen.style.cursor = 'pointer';
@@ -428,34 +337,16 @@
     }
 
     function enterSite() {
-
-      bgMusic.play().catch(() => {
-
-      });
-
-
+      bgMusic.play().catch(() => {});
       loadingScreen.style.transform = 'translateY(-100%)';
       loadingScreen.style.opacity = '0';
-
-
       mainContent.classList.add('visible');
-
-
-      setTimeout(() => {
-        terminalBox.classList.add('visible');  
-        metasploitBox.classList.add('visible'); 
-        wifiteBox.classList.add('visible'); 
-        toolsBox.classList.add('visible'); 
-      }, 700);
-
- 
       setTimeout(() => {
         loadingScreen.style.display = 'none';
       }, 1500);
     }
 
     loadingInterval = setInterval(updateLoading, 40);
-
 
     document.addEventListener('mousemove', function (e) {
       createSparkle(e.clientX, e.clientY);
@@ -467,12 +358,16 @@
       sparkle.style.left = x + 'px';
       sparkle.style.top = y + 'px';
       document.body.appendChild(sparkle);
-
-
       sparkle.addEventListener('animationend', () => {
         sparkle.remove();
       });
     }
+
+    document.body.addEventListener('copy', function (e) {
+      if (e.target.tagName !== 'A' || !e.target.classList.contains('contact-buttons')) {
+        e.preventDefault();
+      }
+    });
   </script>
 </body>
 </html>
