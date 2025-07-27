@@ -9,15 +9,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet" />
   <style>
+    :root {
+      --left-offset: 150px; 
+    }
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
       user-select: none !important;
       -webkit-user-drag: none !important;
-      -moz-user-select: none !important;
-      -ms-user-select: none !important;
-      -webkit-user-select: none !important;
     }
 
     body, html {
@@ -260,7 +260,7 @@
     .right-buttons {
       position: fixed;
       top: 50%;
-      right: 35px; 
+      right: 35px;
       transform: translateY(-50%);
       display: flex;
       flex-direction: column;
@@ -289,6 +289,24 @@
       transform: scale(1.1);
       box-shadow: 0 0 15px #ffffff, 0 0 40px #ffffff;
     }
+
+
+    .left-gif {
+      position: fixed;
+      top: 50%;
+      left: var(--left-offset);
+      transform: translateY(-50%);
+      z-index: 999;
+      width: 240px;
+      height: auto;
+      pointer-events: none;
+      outline: none;
+      border: none;
+      box-shadow: none;
+      filter: none;
+      user-select: none !important;
+      -webkit-user-drag: none !important;
+    }
   </style>
 </head>
 <body>
@@ -301,6 +319,9 @@
     <source src="music.mp3" type="audio/mpeg" />
     Your browser does not support the audio element.
   </audio>
+
+
+  <img src="grf.gif" alt="Left Graphic" class="left-gif" />
 
   <div class="floating-boxes">
     <div style="width: 50px; height: 50px; top: 10%; left: 5%; animation-delay: 0s;"></div>
