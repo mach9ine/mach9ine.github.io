@@ -1,4 +1,5 @@
-/*function glitchEffect(element) {
+/*
+function glitchEffect(element) {
   element.classList.add('glitch');
   setTimeout(() => {
     element.classList.remove('glitch');
@@ -76,3 +77,4 @@ document.body.addEventListener('copy', function (e) {
 window.addEventListener('load', () => {
   preloadResources(showEnterText);
 });
+*/
