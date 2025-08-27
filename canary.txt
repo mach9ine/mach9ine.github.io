@@ -1,6 +1,6 @@
 -----BEGIN PGP SIGNED MESSAGE-----
 
-domain:  https://mach9ne
+domain:  https://mach9ne.xyz
 address: sudo@mach9ne.xyz
 
 -----END PGP SIGNED MESSAGE-----
@@ -63,3 +63,4 @@ mO+jra7qgXGOmOpaxbUnzqAjOMymFRwHGQ8zhL083Tei0/mo/juSCe+yiOWFF6PB
 WJtH9xOh
 =vmPX
 -----END PGP PUBLIC KEY BLOCK-----
+
