@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Coming Soon | Mach9ne</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: 'Jersey 10', monospace;
+      background-color: #000;
+      color: #d0a0ff;
+      overflow: hidden;
+      cursor: default;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 5rem;
+      margin-bottom: 1rem;
+      animation: glitch 1s infinite;
+    }
+
+    @keyframes glitch {
+      0% { text-shadow: 2px 2px #ff00ff; }
+      20% { text-shadow: -2px -2px #aa00ff; }
+      40% { text-shadow: 2px -2px #cc00cc; }
+      60% { text-shadow: -2px 2px #9900ff; }
+      80% { text-shadow: 2px 2px #bb00bb; }
+      100% { text-shadow: none; }
+    }
+
+    .links {
+      font-size: 1.5rem;
+      margin-top: 1rem;
+      user-select: text;
+    }
+
+    .links a {
+      color: #d0a0ff;
+      text-decoration: none;
+      font-weight: bold;
+      margin: 0 1rem;
+      transition: color 0.3s ease;
+    }
+
+    .links a:hover {
+      color: #fff;
+      text-shadow: 0 0 8px #d0a0ff;
+    }
+
+    .sparkle {
+      position: fixed;
+      pointer-events: none;
+      width: 6px;
+      height: 6px;
+      background: radial-gradient(circle, #d0a0ff 0%, transparent 70%);
+      border-radius: 50%;
+      opacity: 0.9;
+      will-change: transform, opacity;
+      animation: sparkleFade 0.8s forwards;
+      z-index: 10000;
+      filter: drop-shadow(0 0 2px #d0a0ff);
+    }
+
+    @keyframes sparkleFade {
+      to {
+        opacity: 0;
+        transform: scale(2);
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Coming Soon</h1>
+  <div class="links">
+    <a href="https://discord.gg/heartsec" target="_blank" rel="noopener noreferrer">Discord</a> | 
+    <a href="https://t.me/mach9ne" target="_blank" rel="noopener noreferrer">Telegram</a>
+  </div>
+
+  <audio id="bgMusic" loop autoplay>
+    <source src="music.mp3" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    document.addEventListener('mousemove', function (e) {
+      createSparkle(e.clientX, e.clientY);
+    });
+
+    function createSparkle(x, y) {
+      const sparkle = document.createElement('div');
+      sparkle.classList.add('sparkle');
+      sparkle.style.left = x + 'px';
+      sparkle.style.top = y + 'px';
+      document.body.appendChild(sparkle);
+      sparkle.addEventListener('animationend', () => {
+        sparkle.remove();
+      });
+    }
+  </script>
+</body>
+</html>

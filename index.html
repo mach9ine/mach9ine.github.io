@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mach9ne</title>
+<link rel="icon" href="cross.png" type="image/png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet" />
+<style>
+:root { --left-offset: 150px; }
+* { margin:0; padding:0; box-sizing:border-box; user-select:none !important; -webkit-user-drag:none !important; }
+
+body, html {
+  height:100%;
+  font-family:'Jersey 10', monospace;
+  background-color:#000;
+  color:#fff;
+  overflow-x:hidden;
+  overflow-y:auto;
+  cursor:default;
+  position:relative;
+}
+
+#loadingScreen {
+  position:fixed; top:0; left:0; width:100vw; height:100vh;
+  background:#000; display:flex; flex-direction:column;
+  justify-content:center; align-items:center; z-index:9999;
+  font-size:2rem; letter-spacing:0.1em; color:#d0a0ff;
+  transition: transform 0.8s ease, opacity 0.8s ease;
+}
+#loadingPercent { font-weight:bold; margin-bottom:1rem; }
+#enterText { opacity:0; transition: opacity 0.3s ease-in-out; font-size:1.2rem; }
+#enterText.visible { opacity:1; }
+
+main {
+  display:flex; flex-direction:column; align-items:flex-start; justify-content:flex-start;
+  text-align:left; padding:2rem; position:relative; z-index:10;
+  visibility:hidden; transform:translateY(100px); opacity:0;
+  transition: transform 0.8s ease, opacity 0.8s ease;
+  margin-top:0.5in;
+  width:696px;
+  margin-left:auto;
+  margin-right:auto;
+
+
+  overflow-y: auto;
+  max-height: 70vh;
+  padding-right: 10px;
+}
+
+main::-webkit-scrollbar {
+  width: 10px;
+}
+
+main::-webkit-scrollbar-track {
+  background: rgba(208, 160, 255, 0.1);
+  border-radius: 5px;
+}
+
+main::-webkit-scrollbar-thumb {
+  background-color: #d0a0ff;
+  border-radius: 5px;
+}
+
+
+main {
+  scrollbar-width: thin;
+  scrollbar-color: #d0a0ff rgba(208, 160, 255, 0.1);
+}
+
+main.visible { visibility:visible; transform:translateY(0); opacity:1; }
+
+body::before {
+  content:""; position:fixed; top:0; left:0; width:100%; height:100%; z-index:-2;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(200,100,255,0.05),
+    rgba(200,100,255,0.05) 1px,
+    transparent 1px,
+    transparent 20px
+  );
+}
+
+.floating-boxes { position:fixed; top:0; left:0; width:100vw; height:100vh; pointer-events:none; z-index:-1; }
+.floating-boxes div { position:absolute; border:1px solid rgba(207,207,207,0.3); background-color: rgba(208,160,255,0.03); }
+
+header {
+  display:flex; flex-direction:column; align-items:flex-start;
+  padding:2rem; z-index:10; position:relative; width:696px; margin:0 auto;
+}
+.glitch {
+  font-size:3rem; animation:glitch 1s infinite; text-align:left; width:100%;
+}
+@keyframes glitch {
+  0% { text-shadow:2px 2px #ff00b3; }
+  20% { text-shadow:-2px -2px #ff35d3; }
+  40% { text-shadow:2px -2px #c710ff; }
+  60% { text-shadow:2px 2px #ff2289; }
+  80% { text-shadow:2px 2px #b010fa; }
+  100% { text-shadow:none; }
+}
+
+/* box sizing  */
+.expandable-box {
+  max-width:696px; margin:2rem auto; padding:2rem;
+  border:2px solid #d0a0ff; background:rgba(0,0,0,0.3);
+  backdrop-filter: blur(10px); overflow:hidden;
+  position:relative; text-align:left; box-sizing:border-box;
+  user-select:text !important;
+}
+
+
+.expandable-box h2 {
+  font-family: 'Jersey 10', monospace;
+  margin-bottom: 1rem;
+}
+
+
+.expandable-box p {
+  font-family: 'IBM Plex Mono', monospace;
+  line-height:1.6em;
+  margin-bottom: 1rem;
+  font-size: 0.9em;
+}
+
+
+.short-content, .long-content {
+  transition: max-height 0.6s ease, opacity 0.6s ease;
+  overflow:hidden;
+}
+
+.short-content {
+  max-height:1000px;
+  opacity:1;
+}
+
+.expandable-box:hover .short-content {
+  max-height:0;
+  opacity:0;
+}
+
+.long-content {
+  max-height:0;
+  opacity:0;
+}
+
+.expandable-box:hover .long-content {
+  max-height:2000px;
+  opacity:1;
+}
+
+
+.contact-button {
+  margin-top: 1rem;
+}
+.contact-button a {
+  padding:0;
+  border:none;
+  background:none;
+  color:#ffffff;
+  font-weight:bold;
+  font-family:'Jersey 10', monospace;
+  cursor:pointer;
+  text-decoration:none;
+  display:inline-block;
+  transition: color 0.3s ease;
+}
+.contact-button a:hover { color:#fff; }
+
+.nav-links { margin-top:1rem; font-size:1.2rem; color:#d0a0ff; text-align:left; }
+.nav-links a { color:#d0a0ff; text-decoration:none; font-weight:bold; transition:color 0.3s ease; }
+.nav-links a:hover { color:#fff; }
+.nav-links span { margin:0 0.5rem; color:#888; }
+</style>
+</head>
+<body>
+<div id="loadingScreen">
+  <div id="loadingPercent">Loading...</div>
+  <div id="enterText">Click to enter</div>
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg" />
+  Your browser does not support the audio element.
+</audio>
+
+<div class="floating-boxes">
+  <div style="width:50px;height:50px;top:10%;left:5%;animation-delay:0s;"></div>
+  <div style="width:80px;height:30px;top:25%;left:70%;animation-delay:1s;"></div>
+  <div style="width:30px;height:100px;top:60%;left:40%;animation-delay:2s;"></div>
+  <div style="width:120px;height:40px;top:45%;left:20%;animation-delay:1.5s;"></div>
+  <div style="width:60px;height:60px;top:80%;left:85%;animation-delay:2.5s;"></div>
+  <div style="width:90px;height:70px;top:70%;left:10%;animation-delay:0.8s;"></div>
+</div>
+
+<header>
+  <h1 class="glitch" id="name">Mach9ne</h1>
+  <div class="nav-links">
+    <a href="https://mach9ne.xyz/osint" target="_blank" rel="noopener noreferrer">osint</a>
+    <span>┊</span>
+    <a href="https://mach9ne.xyz/canary.txt" target="_blank" rel="noopener noreferrer">PGP</a>
+    <span>┊</span>
+    <a href="https://nuvaryn.site" target="_blank" rel="noopener noreferrer">nuvaryn</a>
+    <span>┊</span>
+    <a href="https://mach9ne.xyz/soon" target="_blank" rel="noopener noreferrer">soon</a>
+    <span>┊</span>
+    <a href="https://mach9ne.xyz/soon" target="_blank" rel="noopener noreferrer">Soon</a>
+  </div>
+</header>
+
+<main>
+  <div class="expandable-box">
+    <div class="short-content">
+      <h2>accouncement</h2>
+      <p>PGP Fingerprint: 6F72 E21D 5486 27BE 8C15 988F F63C 4770 718E 8C0B</p>
+      <br />
+      <p>
+       I will be updating this website on September 5. In addition, the Nuvaryn website and its special services will go live as soon as 
+       BreachForums returns online. I am committed to keeping you informed, and regular updates will be provided to ensure you have the 
+       latest information on all developments.
+      </p>
+      <p>
+       Hover over the container to view the full message.
+      </p>
+      updated 29 August
+    </div>
+    <div class="long-content">
+      <p>
+        https://mach9ne.xyz/contact
+      </p>
+      <br />
+      <p>
+        I'm also an advocate of secure coding practices in modern frameworks, with deep integration of threat modeling into SDLC pipelines.
+        I’ve designed layered defense models that integrate endpoint detection, SIEM feeds, and live incident response protocols.
+      </p>
+      updated 29 August
+      <div class="contact-button">
+        <a href="https://mach9ne.xyz/canary.txt" target="_blank">[ Signature ]</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
