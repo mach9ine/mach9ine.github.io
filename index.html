@@ -4,14 +4,51 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Mach9ne</title>
+
+
+<script>
+
+(function() {
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    if (isMobile) {
+        document.body.innerHTML = `
+            <div style="
+                display:flex;
+                justify-content:center;
+                align-items:center;
+                height:100vh;
+                margin:0;
+                background-color:#000;
+                color:#d0a0ff;
+                font-family:'Jersey 10', monospace;
+                text-align:center;
+                padding:1rem;
+            ">
+                <div>
+                    <h1 style="font-size:2rem;margin-bottom:1rem;">Access Denied</h1>
+                    <p style="font-size:1.2rem;">This website is only accessible from a desktop or laptop. Please visit from a desktop device.</p>
+                </div>
+            </div>
+        `;
+
+        const scripts = document.querySelectorAll('script');
+        scripts.forEach(s => s.remove());
+    }
+})();
+</script>
+
 <link rel="icon" href="cross.png" type="image/png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet" />
 <style>
-:root { --left-offset: 150px; }
-* { margin:0; padding:0; box-sizing:border-box; user-select:none !important; -webkit-user-drag:none !important; }
+
+body, html, header, .nav-links, .glitch, .contact-button {
+  user-select: none;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-user-drag:none !important; }
 
 body, html {
   height:100%;
@@ -36,42 +73,14 @@ body, html {
 #enterText.visible { opacity:1; }
 
 main {
-  display:flex; flex-direction:column; align-items:flex-start; justify-content:flex-start;
-  text-align:left; padding:2rem; position:relative; z-index:10;
-  visibility:hidden; transform:translateY(100px); opacity:0;
-  transition: transform 0.8s ease, opacity 0.8s ease;
-  margin-top:0.5in;
+  text-align:left;
+  padding:2rem 2rem 0 2rem;
+  position:relative; z-index:10;
   width:696px;
-  margin-left:auto;
-  margin-right:auto;
-
-
-  overflow-y: auto;
-  max-height: 70vh;
-  padding-right: 10px;
+  margin:2rem auto 0 auto;
+  overflow: visible;
+  pointer-events:auto !important; 
 }
-
-main::-webkit-scrollbar {
-  width: 10px;
-}
-
-main::-webkit-scrollbar-track {
-  background: rgba(208, 160, 255, 0.1);
-  border-radius: 5px;
-}
-
-main::-webkit-scrollbar-thumb {
-  background-color: #d0a0ff;
-  border-radius: 5px;
-}
-
-
-main {
-  scrollbar-width: thin;
-  scrollbar-color: #d0a0ff rgba(208, 160, 255, 0.1);
-}
-
-main.visible { visibility:visible; transform:translateY(0); opacity:1; }
 
 body::before {
   content:""; position:fixed; top:0; left:0; width:100%; height:100%; z-index:-2;
@@ -103,23 +112,45 @@ header {
   100% { text-shadow:none; }
 }
 
-/* box sizing  */
-.expandable-box {
-  max-width:696px; margin:2rem auto; padding:2rem;
-  border:2px solid #d0a0ff; background:rgba(0,0,0,0.3);
-  backdrop-filter: blur(10px); overflow:hidden;
-  position:relative; text-align:left; box-sizing:border-box;
-  user-select:text !important;
+
+.container-box {
+  max-width:696px;
+  margin:0 auto;
+  padding:2rem;
+  border:2px solid #d0a0ff;
+  background:rgba(0,0,0,0.3);
+  backdrop-filter: blur(10px);
+  height:672px; 
+  box-sizing:border-box;
+  overflow-y: auto; 
+  user-select: text !important; 
+  pointer-events:auto; 
 }
 
 
-.expandable-box h2 {
+.container-box::-webkit-scrollbar {
+  width:10px;
+}
+.container-box::-webkit-scrollbar-track {
+  background: rgba(208,160,255,0.1);
+  border-radius:5px;
+}
+.container-box::-webkit-scrollbar-thumb {
+  background-color: #d0a0ff;
+  border-radius:5px;
+}
+
+.container-box {
+  scrollbar-width: thin;
+  scrollbar-color: #d0a0ff rgba(208,160,255,0.1);
+}
+
+.container-box h2 {
   font-family: 'Jersey 10', monospace;
   margin-bottom: 1rem;
 }
 
-
-.expandable-box p {
+.container-box p {
   font-family: 'IBM Plex Mono', monospace;
   line-height:1.6em;
   margin-bottom: 1rem;
@@ -127,35 +158,19 @@ header {
 }
 
 
-.short-content, .long-content {
-  transition: max-height 0.6s ease, opacity 0.6s ease;
-  overflow:hidden;
+:root {
+  --sig-left: 32px; 
+  --sig-top: 15px;   
 }
-
-.short-content {
-  max-height:1000px;
-  opacity:1;
-}
-
-.expandable-box:hover .short-content {
-  max-height:0;
-  opacity:0;
-}
-
-.long-content {
-  max-height:0;
-  opacity:0;
-}
-
-.expandable-box:hover .long-content {
-  max-height:2000px;
-  opacity:1;
-}
-
-
 .contact-button {
-  margin-top: 1rem;
+  max-width:696px;
+  margin:0;
+  text-align:left;
+  position:relative;
+  left: var(--sig-left);
+  top: var(--sig-top);
 }
+
 .contact-button a {
   padding:0;
   border:none;
@@ -212,35 +227,36 @@ header {
 </header>
 
 <main>
-  <div class="expandable-box">
-    <div class="short-content">
-      <h2>accouncement</h2>
-      <p>PGP Fingerprint: 6F72 E21D 5486 27BE 8C15 988F F63C 4770 718E 8C0B</p>
-      <br />
-      <p>
-       I will be updating this website on September 5. In addition, the Nuvaryn website and its special services will go live as soon as 
-       BreachForums returns online. I am committed to keeping you informed, and regular updates will be provided to ensure you have the 
-       latest information on all developments.
-      </p>
-      <p>
-       Hover over the container to view the full message.
-      </p>
-      updated 29 August
-    </div>
-    <div class="long-content">
-      <p>
-        https://mach9ne.xyz/contact
-      </p>
-      <br />
-      <p>
-        I'm also an advocate of secure coding practices in modern frameworks, with deep integration of threat modeling into SDLC pipelines.
-        I’ve designed layered defense models that integrate endpoint detection, SIEM feeds, and live incident response protocols.
-      </p>
-      updated 29 August
-      <div class="contact-button">
-        <a href="https://mach9ne.xyz/canary.txt" target="_blank">[ Signature ]</a>
-      </div>
-    </div>
+  <div class="container-box">
+    <h2>accouncement</h2>
+    <p><strong>PGP Fingerprint:</strong> 6F72 E21D 5486 27BE 8C15 988F F63C 4770 718E 8C0B</p>
+    <br />
+    <p>
+-----BEGIN PGP MESSAGE-----
+    </p>
+    <p>
+Hey, it’s Mach9ne.
+I’m sad to announce that Nuvaryn will be inactive for now. Our plan to operate through BreachForums is not possible, as 
+our account was banned and the platform is down. Since we cannot verify the site’s safety, we will provide our 
+exclusive services via Session and XMPP until further notice.
+    </p>
+    <p>
+BreachForums was last operated under N/A, which is a federal entity. According to Shiny, federal authorities have access 
+to BreachForums’ PGP, so there is no way to verify whether Shiny’s PGP has remained unchanged. There is currently no other 
+forum we can trust.Until we find a secure platform or build one ourselves, please reach us via XMPP or Session. Updated 
+contact details for XMPP and Session will be available on our website: nuvaryn.site
+Take care.
+    </p>
+    <p>
+-----END PGP MESSAGE-----
+    </p>
+    <p>
+<strong>Updated: 29 August</strong> 
+    </p>
+  </div>
+
+  <div class="contact-button">
+    <a href="https://mach9ne.xyz/canary.txt" target="_blank">[ Signature ]</a>
   </div>
 </main>
 
