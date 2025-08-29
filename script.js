@@ -46,14 +46,14 @@ function preloadResources(callback) {
 }
 
 function showEnterText() {
-  loadingPercent.style.display = 'none';  //wtf optoon1 
+  loadingPercent.style.display = 'none';
   enterText.classList.add('visible');    
   loadingScreen.style.cursor = 'pointer';
   loadingScreen.addEventListener('click', enterSite, { once: true });
 }
 
 function enterSite() {
-  bgMusic.play().catch(() => {}); // Try autoplay
+  bgMusic.play().catch(() => {}); 
   loadingScreen.style.transform = 'translateY(-100%)';
   loadingScreen.style.opacity = '0';
   mainContent.classList.add('visible');
@@ -72,7 +72,7 @@ document.body.addEventListener('copy', function (e) {
   }
 });
 
-// holy fuck the important part please mch9ne remember to edit ts please 
+
 window.addEventListener('load', () => {
   preloadResources(showEnterText);
 });
